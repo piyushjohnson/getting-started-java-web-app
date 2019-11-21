@@ -1,0 +1,10 @@
+{
+  "debug.node.autoAttach": "off",
+  "java.dependency.syncWithFolderExplorer": true,
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.autobuild.enabled": true,
+  "java.completion.enabled": true,
+  "java.format.enabled": true,
+  "gradle.autoDetect": "on",
+  "gradle.enableTasksExplorer": true
+}
