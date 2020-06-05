@@ -5,15 +5,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "HelloServlet", urlPatterns = { "hello" }, loadOnStartup = 1)
+@WebServlet(urlPatterns ={"/hello"})
 public class HelloServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
+  @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     response.getWriter().print("Hello, World!");
   }
 
+  @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String name = request.getParameter("name");
     if (name == null)

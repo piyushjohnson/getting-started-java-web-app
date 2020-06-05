@@ -1,9 +1,10 @@
 plugins {
     id 'war'  
-    id 'org.gretty' version '2.2.0'
+    id 'org.gretty' version '2.2.0' 
+    id 'maven'
 }
 
-repositories {
+repositories {  
     jcenter()
 }
 
@@ -14,8 +15,18 @@ sourceSets {
 
 dependencies {
     providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+    compile 'commons-lang:commons-lang:2.3'
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:2.7.19' 
     testCompile 'io.github.bonigarcia:webdrivermanager:3.7.1' 
     testCompile 'org.seleniumhq.selenium:selenium-java:3.3.1'
+}
+
+group = 'default'
+version = '0.1'
+
+gretty {
+    httpPort = 5000
+    contextPath = "webdemo"
+    integrationTestTask = 'test'
 }
