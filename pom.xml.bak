@@ -34,7 +34,7 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>2.22.0</version>
+      <version>2.7.19</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -48,24 +48,6 @@
       <artifactId>selenium-java</artifactId>
       <version>3.14.0</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>net.bytebuddy</groupId>
-      <artifactId>byte-buddy</artifactId>
-      <version>1.8.13</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>net.bytebuddy</groupId>
-      <artifactId>byte-buddy-agent</artifactId>
-      <version>1.8.13</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.objenesis</groupId>
-      <artifactId>objenesis</artifactId>
-      <version>2.6</version>
-      <scope>compile</scope>
     </dependency>
   </dependencies>
   <build>
@@ -100,45 +82,60 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>9.4.11.v20180605</version>
+        <configuration>
+          <httpConnector>
+            <port>8999</port>
+          </httpConnector>
+          <stopKey>quit</stopKey>
+          <stopPort>9000</stopPort>
+          <!-- <jettyXml>jetty.xml</jettyXml> -->
+          <modules>
+            <module>annotations</module>
+          </modules>
+          <!-- <effectiveWebXml>${project.basedir}/target/webdemo/WEB-INF/web.xml</effectiveWebXml> -->
+        </configuration>
+        <executions>
+          <execution>
+            <id>start-jetty</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>start</goal>
+            </goals>
+          </execution>
+          <!-- <execution>
+            <id>extract-webxml-jetty</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>effective-web-xml</goal>
+            </goals>
+          </execution> -->
+          <execution>
+            <id>jetty-deploy</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>run-war</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>stop-jetty</id>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>stop</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.apache.tomcat.maven</groupId>
         <artifactId>tomcat7-maven-plugin</artifactId>
         <version>2.2</version>
-        <executions>
-          <execution>
-            <id>start-tomcat</id>
-            <phase>pre-integration-test</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <fork>true</fork>
-              <port>8081</port>
-            </configuration>
-          </execution>
-          <execution>
-            <id>stop-tomcat</id>
-            <phase>post-integration-test</phase>
-            <goals>
-              <goal>shutdown</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>tomcat-run</id>
-            <goals>
-              <goal>deploy</goal>
-            </goals>
-            <phase>install</phase>
-            <configuration>
-              <fork>true</fork>
-              <port>8082</port>
-            </configuration>
-          </execution>
-        </executions>
         <configuration>
-          <url>http://localhost:8999/manager/text</url>
+          <url>http://localhost:8080/manager/text</url>
           <server>TomcatServer</server>
           <path>/webdemo</path>
-          <update>true</update>
         </configuration>
       </plugin>
       <plugin>

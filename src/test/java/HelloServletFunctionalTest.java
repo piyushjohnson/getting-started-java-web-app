@@ -38,7 +38,7 @@ public class HelloServletFunctionalTest {
     @Test
     public void sayHello() throws Exception {
         // WebDriverWait wait = new WebDriverWait(driver, 30);
-        driver.get("http://localhost:8999");
+        driver.get("http://localhost:8081/webdemo");
         // driver.get("http://localhost:5000/webdemo");
         Thread.sleep(8000);
 
