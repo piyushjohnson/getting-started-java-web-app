@@ -69,6 +69,7 @@
         <configuration>
           <excludes>
             <exclude>**/*FunctionalTest.java</exclude>
+            <exclude>**/*HelloServletTest.java</exclude>
           </excludes>
         </configuration>
       </plugin>
